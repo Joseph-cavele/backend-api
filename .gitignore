@@ -1,0 +1,18 @@
+# Dependencies 
+mode_module/
+
+#Environment variable
+.env
+.env.development
+.env.test
+.env.production
+
+#IDE files 
+.vscode/
+.idea
+
+#Logos 
+logos/
+*.log
+npm-debug.log*
+
