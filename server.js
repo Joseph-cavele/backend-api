@@ -3,7 +3,7 @@ import express from 'express';
 import helmet from 'helmet';
 import dotenv from "dotenv"
 import morgan from 'morgan';
-import { connectDB } from './DB/db.js';
+import { CONNECT_DB } from './Connectdb/db.js';
 import { sendConsultationApproval } from './Utils/emails/consultationEmail.js';
 import ConsultationRouters from './router/ConsultationRouters.js';
 import ProjectInquiryRouters from "./router/ProjectInquiryRouters.js"
@@ -40,8 +40,9 @@ app.use((req, res, next) => {
 app.use(helmet())
 
 // connect db
+CONNECT_DB()
 
-connectDB()
+
 //Consultations
 app.use('/api',ConsultationRouters)
 
