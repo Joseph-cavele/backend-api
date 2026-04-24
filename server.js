@@ -20,7 +20,7 @@ dotenv.config()
 
 const app=express()
 app.use(cors({
-    origin:'https://caveledigital.co.za',
+    origin:['https://caveledigital.co.za','http://localhost:5173',],
     methods:'*',
     credentials:true
 }))
@@ -72,7 +72,7 @@ app.use(errorHandle)
 
 
 const PORT=process.env.PORT || 5000
-app.listen(PORT,()=>{
+app.listen(PORT,'0.0.0.0',()=>{
     console.log(`Server is running on http:${PORT}`)
 })
 

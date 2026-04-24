@@ -34,7 +34,7 @@ import { ThankyouEmail } from "../Utils/emails/User.js"
                await ThankyouEmail(newUser)
                return res.status(200).json({
                 success:true,
-                matchMedia:"Email sent successfully"
+                message:"Email sent successfully"
                })
                 
             } catch (err) {
