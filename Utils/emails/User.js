@@ -3,21 +3,26 @@ import { Resend } from 'resend'
 import dotenv from 'dotenv'
 dotenv.config()
 
+
 const resend=new Resend(process.env.RESEND_API_KEY)
 
-export const ThankyouEmail=async(user)=>{
+export const ThankyouEmail=async(email,firsname)=>{
+    console.log(resend.data)
+
+    
 
 
     try {
         const data=await resend.emails.send({
-            from:`Cavele Digital < ${process.env.ADMIN_EMAI}>`,
-            to:user.email,
+            from:`CAVELE DIGITAL< ${process.env.ADMIN_EMAIL}>`,
+            to:email,
             subject:"Thank you for reaching out to Cavele Digital !",
-            text: `Hi ${user.firstname}! Thank you for reaching out to Cavele Digital .  `,
+            text: `Hi ${firsname}! Thank you for reaching out to Cavele Digital .  `,
            
             html:`
                   <div style="font-family: 'DM Sans', sans-serif; background-color: #0c0c0f; padding: 40px 20px; min-height: 100vh;">
-          <div style="max-width: 580px; margin: 0 auto; background-color: #141418; border: 1px solid #222; border-radius: 16px; overflow: hidden;">
+          <div style="max-width: 580px; margin: 0 auto; background-color: #141418; border: 1px solid #222;
+           border-radius: 16px; overflow: hidden;">
 
         
             <div style="background-color: #d4af37; padding: 12px 32px;">
@@ -27,7 +32,7 @@ export const ThankyouEmail=async(user)=>{
             
             <div style="padding: 40px 32px;">
               <h1 style="font-size: 28px; color: #f5f0e8; font-weight: 400; margin: 0 0 24px;">
-                Hi ${name}! 👋
+                Hi ${firsname }! 👋
               </h1>
               <p style="font-size: 16px; color: #aaa; line-height: 1.8; margin: 0 0 16px;">
                 Thank you for reaching out to <strong style="color: #d4af37;">Cavele Digital</strong>. We've received your message and a member of our team will get back to you within 24 hours.
@@ -56,10 +61,13 @@ export const ThankyouEmail=async(user)=>{
 
 
         })
+        console.log("email sent successfull")
 
+        return data
         
     } catch (error) {
-        console.log(error)
+        console.log(`Failed to sent email ${error} `)
+        throw error
         
     }
 

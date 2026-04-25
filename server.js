@@ -1,5 +1,5 @@
 import express from 'express';
-
+import { Resend } from 'resend';
 import helmet from 'helmet';
 import dotenv from "dotenv"
 import morgan from 'morgan';
@@ -13,7 +13,7 @@ import cors from "cors"
 
 
 
-
+const resend=new Resend(process.env.RESEND_API_KEY)
 
 
 dotenv.config()

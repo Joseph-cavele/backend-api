@@ -31,7 +31,7 @@ import { ThankyouEmail } from "../Utils/emails/User.js"
                 message
                })
                await newUser.save()
-               await ThankyouEmail(newUser)
+               await ThankyouEmail(email,firstname)
                return res.status(200).json({
                 success:true,
                 message:"Email sent successfully"
