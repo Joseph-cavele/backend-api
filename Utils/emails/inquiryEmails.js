@@ -1,12 +1,15 @@
+import { Resend } from "resend";
 
-import { transporter } from "./transporter.js";
 
 // ─── Admin Notification - New Inquiry ───────────────────────────────────────
+const resend=new Resend(process.env.RESEND_API_KEY)
 export const sendInquiryNotification = async (req, res) => {
   const { fullName, email, phoneNumber, services, projectBudget, message } =req 
-  await transporter.sendMail({
-    from: `"Cavele Digital" <${process.env.EMAIL_USER}>`,
-    to: process.env.ADMIN_EMAIL,
+  try {
+    
+  const data=await resend.emails.send({
+    from: `"Cavele Digital" <${process.env.ADMIN_EMAIL}>`,
+    to: email,
     subject: `New Project Inquiry - ${fullName}`,
     html: `
       <div style="font-family: Arial, sans-serif; max-width: 600px; margin: auto; padding: 24px; border: 1px solid #e5e7eb; border-radius: 8px;">
@@ -24,13 +27,24 @@ export const sendInquiryNotification = async (req, res) => {
         <p style="color: #6b7280; font-size: 13px;">Cavele Digital — New client inquiry received</p>
       </div>
     `,
+    
+ 
   });
+  return data
+   } catch (error) {
+    console.error(error)
+    
+  }
 };
 
 // ─── Client Confirmation - Inquiry Received ──────────────────────────────────
 export const sendInquiryConfirmation = async (user) => {
-  await transporter.sendMail({
-    from: `"Cavele Digital" <${process.env.EMAIL_USER}>`,
+
+  try {
+    
+
+  const data=await resend.emails.send({
+    from: `"Cavele Digital" <${process.env.ADMIN_EMAIL}>`,
     to: user.email,
     subject: `We received your inquiry - Cavele Digital`,
     html: `
@@ -51,4 +65,11 @@ export const sendInquiryConfirmation = async (user) => {
       </div>
     `,
   });
-};
+
+
+    return data
+  } catch (error) {
+    console.log(error)
+    
+  }
+ }; 

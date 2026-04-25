@@ -1,9 +1,9 @@
-
-import { transporter } from "./transporter.js";
+import { Resend } from "resend";
+const resend=new Resend(process.env.RESEND_API_KEY)
 // ─── Client Notification - Consultation Approved ─────────────────────────────
 export const sendConsultationApproval = async (consultation) => {
   console.log('Preparing to send consultation approval email to:', consultation.email);
-  await transporter.sendMail({
+  await resend.emails.send({
     from: `"Cavele Digital" <${process.env.EMAIL_USER}>`,
     to: consultation.email,
     subject: `Your Consultation is Confirmed - Cavele Digital`,
@@ -40,7 +40,7 @@ export const sendConsultationApproval = async (consultation) => {
 export const sendConsultationNotification = async (consultation) => {
   const approveUrl = `${process.env.BASE_URL}/api/consultations/${consultation._id}/approve`;
 
-  await transporter.sendMail({
+  await resend.emails.send({
     from: `"Cavele Digital" <${process.env.EMAIL_USER}>`,
     to: process.env.ADMIN_EMAIL,
     subject: `New Consultation Booking - ${consultation.fullName}`,
