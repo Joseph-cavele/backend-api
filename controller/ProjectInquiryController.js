@@ -1,7 +1,8 @@
 
 import User from '../Models/ProjectInquiry.js';
 
-import { sendInquiryConfirmation ,sendInquiryNotification} from '../Utils/emails/inquiryEmails.js';
+
+
 
 export const submitInquiry = async (req, res) => {
   
@@ -17,8 +18,8 @@ export const submitInquiry = async (req, res) => {
     const user = await User.create({ fullName, email, phoneNumber, services, projectBudget, message });
 
     // Notify admin & confirm to client
-    await sendInquiryNotification(user);
-    await sendInquiryConfirmation(user);
+  
+     
 
     res.status(201).json({ message: 'Inquiry submitted successfully', user });
   } catch (error) {

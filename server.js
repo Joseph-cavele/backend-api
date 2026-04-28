@@ -1,10 +1,9 @@
 import express from 'express';
-import { Resend } from 'resend';
+
 import helmet from 'helmet';
 import dotenv from "dotenv"
 import morgan from 'morgan';
 import { CONNECT_DB } from './Connectdb/db.js';
-import { sendConsultationApproval } from './Utils/emails/consultationEmail.js';
 import ConsultationRouters from './router/ConsultationRouters.js';
 import ProjectInquiryRouters from "./router/ProjectInquiryRouters.js"
 import { errorHandle } from './middleware/AuthMiddleware.js';
@@ -13,7 +12,7 @@ import cors from "cors"
 
 
 
-const resend=new Resend(process.env.RESEND_API_KEY)
+
 
 
 dotenv.config()

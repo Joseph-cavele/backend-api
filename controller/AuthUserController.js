@@ -1,6 +1,7 @@
 import { AuthUserSchema } from "../middleware/AuthUser.js"
 import { UserModel } from "../Models/UserModel.js"
-import { ThankyouEmail } from "../Utils/emails/User.js"
+
+
 
 
     export const AuthUserController=async(req,res,next)=>{
@@ -30,8 +31,11 @@ import { ThankyouEmail } from "../Utils/emails/User.js"
                 email,
                 message
                })
+
                await newUser.save()
-               await ThankyouEmail(email,firstname)
+
+               
+            
                return res.status(200).json({
                 success:true,
                 message:"Email sent successfully"
