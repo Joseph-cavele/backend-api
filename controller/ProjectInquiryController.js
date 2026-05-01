@@ -1,5 +1,7 @@
 
+
 import User from '../Models/ProjectInquiry.js';
+
 
 
 
@@ -7,7 +9,9 @@ import User from '../Models/ProjectInquiry.js';
 export const submitInquiry = async (req, res) => {
   
    const { fullName, email, phoneNumber, services, projectBudget, message } = req.body;
+
   try {
+      
    
 
     const existingUser = await User.findOne({ email });
@@ -18,6 +22,30 @@ export const submitInquiry = async (req, res) => {
     const user = await User.create({ fullName, email, phoneNumber, services, projectBudget, message });
 
     // Notify admin & confirm to client
+      const Make_API="https://hook.us2.make.com/o5ljbfkm8mjmwoy81q91lkmh9t6ffium"
+      const MakaData={
+         fullName:user.fullName,
+         email:user.email,
+         phoneNumber:user.phoneNumber,
+         services:user.services,
+         projectBudget:user.projectBudget,
+         message:user.message
+      }
+
+    const response=await fetch(Make_API,{
+      method:"POST",
+      headers:{"Content-Type":"application/json"},
+      body:JSON.stringify(MakaData)
+
+
+
+
+    })
+    
+    if(!response.ok){
+      throw Error("failed to post data")
+    }
+
   
      
 
