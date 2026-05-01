@@ -41,10 +41,12 @@ export const submitInquiry = async (req, res) => {
 
 
     })
+    const data=await response.json()
     
     if(!response.ok){
       throw Error("failed to post data")
     }
+    console.log(data)
 
   
      
